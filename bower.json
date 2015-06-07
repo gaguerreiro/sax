@@ -1,0 +1,28 @@
+{
+  "name": "sax",
+  "main": "sax.min.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/gaguerreiro/sax",
+  "authors": [
+    "Gabriel Guerreiro <gaguerreiro@gmail.com>"
+  ],
+  "description": "Semantic AIDAX",
+  "keywords": [
+    "sax",
+    "aidax",
+    "semantic",
+    "html",
+    "attribute",
+    "ax",
+    "library",
+    "lib"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
