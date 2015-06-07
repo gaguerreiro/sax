@@ -1,9 +1,20 @@
 # Sax
 
 ### Sax help you to focus only HTML, decreasing JS work. 
-### Created using [AIDAX Doc](http://doc.aidax.com.br/)
+#### Created using [AIDAX Doc](http://doc.aidax.com.br/)
 
 ## Installation
+
+```sh
+bower install sax
+```
+
+or
+
+```html
+// After AIDAX script (recommended)
+<script src="sax.min.js"/>
+```
 
 ## Attributes
 
@@ -15,10 +26,10 @@ Place in all element that you want to track.
 Set a value to force a custom name to event (recommended). If keep blank, Sax will generate a name, based on: title, alt, name, id or class of the element.
 
 ```html
-// event: "Name of Event"
+// event: "name of event"
 <a id="link1" title="Name of Event" sax-track>Link</a>
 
-// event: "Event Click"
+// event: "event click"
 <a id="link2" sax-track="Event Click">Link 2</a>
 
 // event: "send"
@@ -27,10 +38,10 @@ Set a value to force a custom name to event (recommended). If keep blank, Sax wi
 // event: "input_form-inputs"
 <input class="form-inputs" type="text|email|number|etc..." sax-track/>
 
-// event: "Input Text Area"
+// event: "input text area"
 <textarea sax-track="Input Text Area"/>
 
-// event: "Was selected"
+// event: "was selected"
 <select sax-track="Was selected"/>
 ```
 
