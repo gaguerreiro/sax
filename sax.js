@@ -1,7 +1,7 @@
 /**
  * Sax
  * Semantic AIDAX
- * 
+ *
  * Javascript library to help you with AIDAX
  *
  * @version 1.0.0
@@ -35,6 +35,7 @@ var Sax = (function() {
 		identify_properties: 'sax-identify-properties',
 		not_prevent: 'sax-not-prevent',
 		property: 'sax-property',
+		on: 'sax-on',
 		email: 'sax-email',
 		goal: 'sax-goal'
 	};
@@ -49,7 +50,6 @@ var Sax = (function() {
 		event_length: 40,
 		goal_length: 254
 	};
-
 
 
 	/**
@@ -67,7 +67,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Whois
 	 * @return {Void}
@@ -75,7 +74,6 @@ var Sax = (function() {
 	var me = function() {
 		$me = (exists(ax)) ? ax.whois() : null;
 	};
-
 
 
 	/**
@@ -102,11 +100,11 @@ var Sax = (function() {
 				var el = all[i];
 
 				// Register tracks
-				if (exists(el.getAttribute($attributes.track)))
+				if (has(el, $attributes.track))
 					$els_track.push(el);
 
 				// Register identify
-				if (exists(el.getAttribute($attributes.identify)))
+				if (has(el, $attributes.identify))
 					$els_profile.push(el);
 			}
 		}
@@ -128,7 +126,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Track elements
 	 * @return {Void}
@@ -146,7 +143,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Create listeners to trackers
 	 * @param  {Object} el "Element"
@@ -157,7 +153,7 @@ var Sax = (function() {
 
 		var track_class = $attributes.track + '-' + i;
 
-		// Set J-AX class
+		// Set Sax class
 		setClass(el, track_class);
 
 		// Event
@@ -229,7 +225,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Identify profile
 	 * @return {Void}
@@ -245,7 +240,6 @@ var Sax = (function() {
 			profileListeners(el, i);
 		}
 	};
-
 
 
 	/**
@@ -376,7 +370,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Goal event
 	 * @param  {Object} el "Element"
@@ -421,7 +414,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Check aidax execution
 	 * @return {Boolean}
@@ -448,7 +440,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Only return default event
 	 * @return {Boolean}
@@ -457,7 +448,6 @@ var Sax = (function() {
 		$flag_event = true;
 		return true;
 	};
-
 
 
 	/**
@@ -469,20 +459,21 @@ var Sax = (function() {
 	var checkPrevent = function(el, event) {
 
 		// Force NOT preventDefault
-		if (exists(el.getAttribute($attributes.not_prevent)))
+		if (has(el, $attributes.not_prevent))
 			return false;
 
 		// If click and exists HREF and != '' and != '#'
-		if (event == 'click' && exists(el.getAttribute('href')) && el.getAttribute('href').charAt(0) != '#')
+		var href = el.getAttribute('href');
+		if (event == 'click' && exists(href) && href.charAt(0) != '#')
 			return true;
 
 		// If submit and exists Action and != '' and != '#'
-		if (event == 'submit' && exists(el.getAttribute('action')) && el.getAttribute('action').charAt(0) != '#')
+		var action = el.getAttribute('action');
+		if (event == 'submit' && exists(action) && action.charAt(0) != '#')
 			return true;
 
 		return false;
 	};
-
 
 
 	/**
@@ -499,7 +490,6 @@ var Sax = (function() {
 			el.className = sax_class;
 		}
 	};
-
 
 
 	/**
@@ -528,7 +518,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Return KEY to identify property
 	 * @param  {Object} el "Element"
@@ -551,7 +540,6 @@ var Sax = (function() {
 
 		return formatKey(key);
 	};
-
 
 
 	/**
@@ -587,6 +575,11 @@ var Sax = (function() {
 	 */
 	var eventByTag = function(el) {
 
+		// Force event
+		var on = el.getAttribute($attributes.on);
+		if (canUse(on))
+			return on;
+
 		var tag = el.tagName;
 		var type = (exists(el.type)) ? el.type : null;
 
@@ -609,6 +602,16 @@ var Sax = (function() {
 		}
 	};
 
+
+	/**
+	 * Check if object has an attribute
+	 * @param  {Object}  el Element
+	 * @param  {String}  prop Attribute
+	 * @return {Boolean}
+	 */
+	var has = function(el, prop) {
+		return el.getAttribute(prop) !== null;
+	}
 
 
 	/**
@@ -633,7 +636,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Is any input element?
 	 * @param  {Object}  el "Element"
@@ -643,7 +645,6 @@ var Sax = (function() {
 		var tag = el.tagName;
 		return (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || tag === 'CHECKBOX' || tag === 'RADIO');
 	};
-
 
 
 	/**
@@ -657,16 +658,14 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Exists in DOM?
 	 * @param  {Object|Attribute} e "Object or Attribute to check existance"
 	 * @return {Boolean}
 	 */
 	var exists = function(e) {
-		return (e !== null && e !== undefined);
+		return (e !== undefined && e !== null);
 	};
-
 
 
 	/**
@@ -679,7 +678,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * If exists and is not empty, so i can use
 	 * @param  {Object} el "Element"
@@ -690,7 +688,6 @@ var Sax = (function() {
 	};
 
 
-
 	/**
 	 * Format property key, to aidax rules
 	 * @param  {String} key "Property key"
@@ -699,7 +696,6 @@ var Sax = (function() {
 	var formatKey = function(key) {
 		return key.substr(0, $default.key_length).trim().replace('/\.|-|\x20/', '_');
 	};
-
 
 	return {
 		init:init,
