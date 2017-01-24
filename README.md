@@ -60,7 +60,7 @@ Required to send properties of events. Accept JSON or CSV formats.
 
 ### *> sax-identify*
 
-Required to identify user and create a profile. Commonly used in input fields and no needs value.
+Required to identify user and create a profile. Usually used in input fields and no needs value.
 
 The inputted value will be used as property value sent.
 
@@ -98,7 +98,7 @@ This list will be combined with Property:Value setted above.
 
 ### *> sax-email*
 
-Used with Identify to force a element to be a Email property. No need value.
+Used with Identify to force an element to be an Email property. No need value.
 
 ```html
 <input type="text|email|number|etc..." sax-identify sax-property="Email of user" sax-email/>
@@ -115,7 +115,7 @@ Optional attribute, used commonly in track elements, to force Sax never prevent 
 
 ## Event Listeners
 
-Sax will add custom classes to all elements, to use like references, and a event listener based on his types.
+Sax will add custom classes to all elements, to use like references, and an event listener based on his types.
 
 If element has **sax-not-prevent** attribute, the default event will never be prevented, but if not, Sax will check if event needs to be prevented to run aidax, before to be executed.
 
